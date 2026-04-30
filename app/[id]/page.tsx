@@ -56,11 +56,12 @@ export default function TopicPage({ params }: { params: Promise<{ id: string }> 
         </nav>
         
         <div className="flex flex-col md:flex-row md:items-center gap-6">
-          <div className="w-20 h-20 bg-primary/10 rounded-2xl flex items-center justify-center text-5xl shadow-sm border border-primary/20">
-            {topic.icon}
+          <div className="w-20 h-20 glass rounded-2xl flex items-center justify-center text-5xl shadow-lg border border-primary/20 animate-float relative overflow-hidden">
+            <div className="absolute inset-0 bg-primary/20 blur-xl rounded-full" />
+            <span className="relative z-10">{topic.icon}</span>
           </div>
           <div className="space-y-2">
-            <h1 className="text-4xl font-extrabold tracking-tight md:text-5xl">
+            <h1 className="text-4xl font-extrabold tracking-tight md:text-5xl text-glow">
               {t(topic.titleEn, topic.titleBn)}
             </h1>
             <p className="text-xl text-muted-foreground leading-relaxed">
@@ -95,9 +96,11 @@ export default function TopicPage({ params }: { params: Promise<{ id: string }> 
                 {section.pointsEn && (
                   <ul className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6 list-none p-0">
                     {(lang === 'bn' ? section.pointsBn : section.pointsEn)?.map((point, pIdx) => (
-                      <li key={pIdx} className="flex items-start gap-3 p-4 rounded-xl bg-muted/30 border border-border/50 transition-all hover:bg-muted/50">
-                        <CheckCircle2 className="w-5 h-5 text-primary shrink-0 mt-0.5" />
-                        <span className="text-sm font-medium">{point}</span>
+                      <li key={pIdx} className="glass-card flex items-start gap-3 p-5 rounded-2xl transition-all hover:-translate-y-1 hover:shadow-lg hover:border-primary/30 group/point">
+                        <div className="bg-primary/10 p-1 rounded-full group-hover/point:bg-primary/20 transition-colors">
+                          <CheckCircle2 className="w-4 h-4 text-primary shrink-0" />
+                        </div>
+                        <span className="text-sm font-medium leading-relaxed">{point}</span>
                       </li>
                     ))}
                   </ul>
@@ -119,18 +122,21 @@ export default function TopicPage({ params }: { params: Promise<{ id: string }> 
       </div>
 
       {/* Footer / Next Steps */}
-      <footer className="mt-20 p-8 rounded-3xl bg-primary/5 border border-primary/10 text-center space-y-6">
-        <h3 className="text-2xl font-bold">{t('Keep Learning!', 'শিখতে থাকুন!')}</h3>
-        <p className="text-muted-foreground">
-          {t(
-            'Mastering these concepts takes time. Try implementing the examples yourself to solidify your understanding.',
-            'এই ধারণাগুলো আয়ত্ত করতে সময় লাগে। আপনার বুঝকে আরও মজবুত করতে উদাহরণগুলো নিজে নিজে ইমপ্লিমেন্ট করার চেষ্টা করুন।'
-          )}
-        </p>
-        <div className="flex justify-center gap-4">
-          <button className="bg-primary text-primary-foreground px-6 py-2.5 rounded-full font-bold hover:opacity-90 transition-all shadow-lg shadow-primary/20">
-            {t('Mark as Complete', 'সম্পন্ন হিসেবে চিহ্নিত করুন')}
-          </button>
+      <footer className="mt-20 glass-card rounded-3xl p-10 text-center space-y-6 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-b from-primary/5 to-transparent pointer-events-none" />
+        <div className="relative z-10">
+          <h3 className="text-3xl font-bold">{t('Keep Learning!', 'শিখতে থাকুন!')}</h3>
+          <p className="text-muted-foreground max-w-lg mx-auto mt-4 text-lg">
+            {t(
+              'Mastering these concepts takes time. Try implementing the examples yourself to solidify your understanding.',
+              'এই ধারণাগুলো আয়ত্ত করতে সময় লাগে। আপনার বুঝকে আরও মজবুত করতে উদাহরণগুলো নিজে নিজে ইমপ্লিমেন্ট করার চেষ্টা করুন।'
+            )}
+          </p>
+          <div className="flex justify-center gap-4 mt-8">
+            <button className="bg-primary text-primary-foreground px-8 py-3 rounded-full font-bold hover:opacity-90 transition-all shadow-[0_0_20px_rgba(var(--primary),0.3)] hover:shadow-[0_0_30px_rgba(var(--primary),0.5)] transform hover:scale-105 active:scale-95">
+              {t('Mark as Complete', 'সম্পন্ন হিসেবে চিহ্নিত করুন')}
+            </button>
+          </div>
         </div>
       </footer>
     </div>
