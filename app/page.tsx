@@ -1,65 +1,117 @@
-import Image from "next/image";
+'use client';
+
+import React from 'react';
+import Link from 'next/link';
+import { NAV_GROUPS } from '@/app/constants/navGroups';
+import { useLanguage } from '@/app/providers/LanguageProvider';
+import { ArrowRight, BookOpen, Target, Zap } from 'lucide-react';
 
 export default function Home() {
+  const { t } = useLanguage();
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+    <div className="max-w-5xl mx-auto px-6 py-12 space-y-16">
+      {/* Hero Section */}
+      <section className="text-center space-y-6 py-10">
+        <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight">
+          {t('Master Your Tech Skills', 'আপনার টেক স্কিলগুলো দক্ষ করে তুলুন')}
+        </h1>
+        <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+          {t(
+            'From foundational concepts to senior-level architectural patterns. A structured path to becoming a professional developer.',
+            'বেসিক থেকে শুরু করে সিনিয়র লেভেল আর্কিটেকচার পর্যন্ত। একজন প্রফেশনাল ডেভেলপার হওয়ার সুবিন্যস্ত পথ।'
+          )}
+        </p>
+        <div className="flex flex-wrap justify-center gap-4 pt-4">
+          <Link
+            href="/roadmap"
+            className="flex items-center gap-2 bg-primary text-primary-foreground px-6 py-3 rounded-full font-semibold hover:opacity-90 transition-all"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            <Target className="w-5 h-5" />
+            {t('View Roadmap', 'রোডম্যাপ দেখুন')}
+          </Link>
+          <Link
+            href="/html"
+            className="flex items-center gap-2 bg-muted hover:bg-muted/80 px-6 py-3 rounded-full font-semibold transition-all"
           >
-            Documentation
-          </a>
+            <BookOpen className="w-5 h-5" />
+            {t('Start Learning', 'শেখা শুরু করুন')}
+          </Link>
         </div>
-      </main>
+      </section>
+
+      {/* Feature Stats */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {[
+          { icon: <Zap className="text-yellow-500" />, titleEn: 'Quick Learning', titleBn: 'দ্রুত শিখুন', descEn: 'Concise and practical guides', descBn: 'সংক্ষিপ্ত এবং ব্যবহারিক গাইড' },
+          { icon: <BookOpen className="text-blue-500" />, titleEn: 'Full Coverage', titleBn: 'সম্পূর্ণ কভারেজ', descEn: 'Basic to advanced topics', descBn: 'বেসিক থেকে অ্যাডভান্সড টপিক' },
+          { icon: <Target className="text-green-500" />, titleEn: 'Job Ready', titleBn: 'চাকরির প্রস্তুতি', descEn: 'Interview focused preparation', descBn: 'ইন্টারভিউ ফোকাসড প্রস্তুতি' },
+        ].map((feature, i) => (
+          <div key={i} className="p-6 rounded-2xl border border-border bg-card/50 space-y-3">
+            <div className="w-12 h-12 rounded-xl bg-muted flex items-center justify-center mb-4">
+              {feature.icon}
+            </div>
+            <h3 className="text-xl font-bold">{t(feature.titleEn, feature.titleBn)}</h3>
+            <p className="text-muted-foreground">{t(feature.descEn, feature.descBn)}</p>
+          </div>
+        ))}
+      </div>
+
+      {/* Categories Grid */}
+      <section className="space-y-8">
+        <h2 className="text-3xl font-bold">{t('Explore Categories', 'ক্যাটাগরিগুলো এক্সপ্লোর করুন')}</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {NAV_GROUPS.slice(1).map((group) => (
+            <div key={group.cat} className="p-8 rounded-2xl border border-border bg-card hover:border-primary/50 transition-colors group">
+              <h3 className="text-sm font-semibold text-primary uppercase tracking-wider mb-4">
+                {group.cat}
+              </h3>
+              <div className="grid grid-cols-2 gap-4">
+                {group.items.map((item) => (
+                  <Link
+                    key={item.id}
+                    href={`/${item.id}`}
+                    className="flex items-center gap-3 p-3 rounded-lg hover:bg-muted transition-colors text-sm font-medium"
+                  >
+                    <span>{item.icon}</span>
+                    <span>{t(item.en, item.bn)}</span>
+                  </Link>
+                ))}
+              </div>
+              <div className="mt-6 pt-6 border-t border-border flex justify-end">
+                <Link
+                  href={`/${group.items[0].id}`}
+                  className="flex items-center gap-2 text-sm font-semibold text-muted-foreground group-hover:text-primary transition-colors"
+                >
+                  {t('View all topics', 'সবগুলো টপিক দেখুন')}
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="bg-primary/5 rounded-3xl p-12 text-center space-y-6 border border-primary/10">
+        <h2 className="text-3xl font-bold">{t('Ready to Level Up?', 'আপনার স্কিল বাড়াতে প্রস্তুত?')}</h2>
+        <p className="text-muted-foreground max-w-xl mx-auto">
+          {t(
+            'Join thousands of developers who are building their solid preparation with DevPrep.',
+            'হাজার হাজার ডেভেলপারদের সাথে যোগ দিন যারা DevPrep এর মাধ্যমে তাদের প্রস্তুতিকে শক্তিশালী করছে।'
+          )}
+        </p>
+        <Link
+          href="/interview"
+          className="inline-flex items-center gap-2 bg-foreground text-background px-8 py-4 rounded-full font-bold hover:opacity-90 transition-all"
+        >
+          {t('Start Interview Prep', 'ইন্টারভিউ প্রস্তুতি শুরু করুন')}
+        </Link>
+      </section>
+
+      <footer className="text-center py-12 text-muted-foreground text-sm border-t border-border">
+        <p>© 2026 DevPrep. {t('Built for developers by developers.', 'ডেভেলপারদের জন্য তৈরি।')}</p>
+      </footer>
     </div>
   );
 }
